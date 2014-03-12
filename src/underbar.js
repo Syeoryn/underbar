@@ -69,7 +69,9 @@ var _ = { };
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
 	var passed= [];
-	_.each(collection,function(element){if(test(element)) passed.push(element)})
+	_.each(collection,function(element){
+		if(test(element)) passed.push(element)
+	})
 	return passed;
   };
 
@@ -77,16 +79,18 @@ var _ = { };
   _.reject = function(collection, test) {
 	var passed = _.filter(collection,test)
 	var rejected = [];
-	for(var i = 0; i < collection.length; i++){
-		if(_.indexOf(passed,collection[i]) == -1) rejected.push(collection[i]);
-	}
+	_.each(collection, function(testValue){
+		if(_.indexOf(passed,testValue) == -1) rejected.push(testValue);
+	});
 	return rejected;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
 	var unique = []
-	_.each(array,function(element){if(_.indexOf(unique,element)==-1) unique.push(element)})
+	_.each(array,function(element){
+		if(_.indexOf(unique,element)==-1) unique.push(element)
+	})
 	return unique;
   };
 
@@ -122,9 +126,9 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
+  _.invoke = function(collection, methodName, args) {
 	_.each(collection,function(element,i,collection){
-		functionOrKey.apply(element,args);
+		methodName.apply(element,args);
 	})
   };
 
