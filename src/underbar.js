@@ -77,12 +77,9 @@ var _ = { };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
-	var passed = _.filter(collection,test)
-	var rejected = [];
-	_.each(collection, function(testValue){
-		if(_.indexOf(passed,testValue) == -1) rejected.push(testValue);
-	});
-	return rejected;
+	return _.filter(collection,function(element){
+		return !test(element)
+	})
   };
 
   // Produce a duplicate-free version of the array.
