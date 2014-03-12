@@ -84,11 +84,11 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-	var unique = []
+	var unique = {}
 	_.each(array,function(element){
-		if(_.indexOf(unique,element)==-1) unique.push(element)
+		unique[element]=true;
 	})
-	return unique;
+	return Object.keys(unique);
   };
 
   // Return the results of applying an iterator to each element.
