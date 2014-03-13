@@ -169,16 +169,23 @@ var _ = { };
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+	if(!iterator) iterator = _.identity;
     return _.reduce(collection, function(all, item) {
 		if(!all) return false;
-		return iterator? (iterator(item)? true : false) : item
+		return iterator(item)? true : false
 	},true)
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+	if(!iterator) iterator = _.identity;
+	var any = false;
+	_.each(collection,function(item){
+		if(iterator(item)) any = true;
+	});
+	return any
+	
   };
 
 
