@@ -149,7 +149,7 @@ var _ = { };
 		var collection = collection.slice(1);
 	}
 	_.each(collection,function(num){
-		accumulator += num
+		accumulator = iterator(accumulator,num)
 	});
 	return accumulator;
   };
