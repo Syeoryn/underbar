@@ -144,6 +144,14 @@ var _ = { };
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+	if(typeof accumulator == 'undefined') {
+		accumulator = collection[0];
+		var collection = collection.slice(1);
+	}
+	_.each(collection,function(num){
+		accumulator += num
+	});
+	return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
