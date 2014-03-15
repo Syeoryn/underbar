@@ -268,8 +268,7 @@ var _ = { };
 	
 	return function(){
 		var key = _.identity.apply(this,arguments);
-		if(!(key in results)) results[key] = func.apply(this,arguments)
-		
+		if(!(key in results)) results[key] = func.apply(this,arguments)		
 		return results[key];
 	}
   };
@@ -281,6 +280,8 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+	var args = Array.prototype.slice.call(arguments,2)
+	return setTimeout(function(){return func.apply(null,args)},wait);
   };
 
 
