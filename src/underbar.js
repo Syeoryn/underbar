@@ -209,8 +209,7 @@ var _ = { };
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
 	_.each(arguments,function(thing){
-		for(var key in thing)
-			obj[key]=thing[key];
+		_.each(thing,function(value,key){obj[key]=value});
 	});
 	return obj
   };
@@ -219,8 +218,9 @@ var _ = { };
   // exists in obj
   _.defaults = function(obj) {
     _.each(arguments,function(thing){
-		for(var key in thing)
-			if(!(key in obj)) obj[key]=thing[key];
+			_.each(thing,function(value,key){
+				if(!(key in obj)) obj[key]=value;
+			});
 	});
 	return obj	
 };
@@ -281,7 +281,8 @@ var _ = { };
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
 	var args = Array.prototype.slice.call(arguments,2);
-	return setTimeout(function(){return func.apply(null,args)},wait);
+	var newFunc = function(){return func.apply(null,args)};
+	return setTimeout(newFunc,wait);
   };
 
 
@@ -297,12 +298,12 @@ var _ = { };
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
 	var shuffled = array.slice();
-	var n, t, o = shuffled.length;
-	while(o>0){
-		n = shuffled[Math.floor(Math.random()*o)]
-		t = shuffled[--o];
-		o = n;
-		n = t
+	var newItem, tempItem, oldItem = shuffled.length;
+	while(oldItem>0){
+		newItem = shuffled[Math.floor(Math.random()*oldItem)]
+		tempItem = shuffled[--oldItem];
+		oldItem = newItem;
+		newItem = tempItem
 	};
 	return shuffled	
   };
